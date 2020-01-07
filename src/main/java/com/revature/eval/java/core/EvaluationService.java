@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +16,7 @@ public class EvaluationService {
 	 */
 	public String reverse(String string) {
 		char[] reversed = new char[string.length()];
-		for (int i = reversed.length - 1, j=0; i >= 0; i--, j++) {
+		for (int i = reversed.length - 1, j = 0; i >= 0; i--, j++) {
 			reversed[j] = string.charAt(i);
 		}
 		return new String(reversed);
@@ -30,8 +31,17 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String acronym(String phrase) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		String result = "";
+		phrase = phrase.trim().toUpperCase();
+		for (int i = 0; i < phrase.length(); i++) {
+			if (i == 0) {
+				result = result + phrase.charAt(0);
+			} else if (phrase.charAt(i) == ' ') {
+				result = result + phrase.charAt(i + 1);
+			}
+		}
+
+		return result;
 	}
 
 	/**
@@ -84,19 +94,19 @@ public class EvaluationService {
 		}
 
 		public boolean isEquilateral() {
-			if(sideOne == sideTwo && sideOne == sideThree)
+			if (sideOne == sideTwo && sideOne == sideThree)
 				return true;
 			return false;
 		}
 
 		public boolean isIsosceles() {
-			if(!this.isEquilateral() && !this.isScalene())
+			if (!this.isEquilateral() && !this.isScalene())
 				return true;
 			return false;
 		}
 
 		public boolean isScalene() {
-			if(!this.isEquilateral())
+			if (!this.isEquilateral())
 				return true;
 			return false;
 		}
@@ -119,8 +129,28 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getScrabbleScore(String string) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int totalScore = 0;
+		string = string.toUpperCase();
+		String[] characters = { "AEILNORSTU", "DG", "BCMP", "FHVWY", "K", "JX", "QZ" };
+		HashMap<Character, Integer> scoreChart = new HashMap<>();
+
+		for (int i = 0; i < 5; i++) {
+			for (char character : characters[i].toCharArray()) {
+				scoreChart.put(character, i + 1);
+			}
+		}
+
+		scoreChart.put('K', 5);
+		scoreChart.put('J', 8);
+		scoreChart.put('X', 8);
+		scoreChart.put('Q', 10);
+		scoreChart.put('Z', 10);
+
+		for (char character : string.toCharArray()) {
+			totalScore += scoreChart.get(character);
+		}
+
+		return totalScore;
 	}
 
 	/**
@@ -155,8 +185,21 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		StringBuilder newString = new StringBuilder();
+
+		for (int i = 0; i < string.length(); i++) {
+			if(string.charAt(i) != ' ') {
+				if(i == 0) {
+					if(string.charAt(0) != '1') {
+						newString.append(string.charAt(i));
+					}
+				} else {
+					newString.append(string.charAt(i));
+				}
+			}
+		}
+
+		return newString.toString();
 	}
 
 	/**
