@@ -203,10 +203,10 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-h		HashMap<String, Integer> wordsCounted = new HashMap<>();
+		HashMap<String, Integer> wordsCounted = new HashMap<>();
 		ArrayList<String> words = new ArrayList<String>();
 		
-		for (String str : string.split(" |,|s")) {
+		for (String str : string.split(" |,|")) {
 			words.add(str);
 		}
 		
