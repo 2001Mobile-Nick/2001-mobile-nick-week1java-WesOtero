@@ -1,6 +1,7 @@
 package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -185,21 +186,11 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		StringBuilder newString = new StringBuilder();
-
-		for (int i = 0; i < string.length(); i++) {
-			if(string.charAt(i) != ' ') {
-				if(i == 0) {
-					if(string.charAt(0) != '1') {
-						newString.append(string.charAt(i));
-					}
-				} else {
-					newString.append(string.charAt(i));
-				}
-			}
-		}
-
-		return newString.toString();
+		
+		String newString = string.replaceAll("[^0-9a-zA-Z]+", "");
+		newString = newString.replaceAll("[^\\d]", "");
+		
+		return newString;
 	}
 
 	/**
@@ -212,8 +203,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+h		HashMap<String, Integer> wordsCounted = new HashMap<>();
+		ArrayList<String> words = new ArrayList<String>();
+		
+		for (String str : string.split(" |,|s")) {
+			words.add(str);
+		}
+		
+		for (String word : words) {
+			System.out.println(word);
+			
+			if(wordsCounted.containsKey(word)) {				
+				wordsCounted.put(word, 2);
+			} else {
+				wordsCounted.put(word, 1);
+			}
+			
+		}
+		//System.out.println(words);
+		System.out.println(wordsCounted);
+		System.out.println("\n");
+		return wordsCounted;
 	}
 
 	/**
