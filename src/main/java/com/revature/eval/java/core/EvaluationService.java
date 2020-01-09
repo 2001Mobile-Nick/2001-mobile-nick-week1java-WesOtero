@@ -376,7 +376,6 @@ public class EvaluationService {
 				currentNumber--;
 			}
 		}
-		System.out.println(factors);
 		return factors;
 	}
 
@@ -424,6 +423,7 @@ public class EvaluationService {
 			        else
 			            stringBuilder.append((char)(string.charAt(x) + key));
 			    }
+			    System.out.println(stringBuilder.toString());
 			    return stringBuilder.toString();
 		}
 
