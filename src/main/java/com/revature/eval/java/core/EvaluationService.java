@@ -306,7 +306,7 @@ public class EvaluationService {
 		ArrayList<String> words = new ArrayList<>();
 		StringBuilder strBuilder = new StringBuilder();
 		int wordCount = string.length();
-		
+
 		for (String str : string.split(" ")) {
 			words.add(str);
 		}
@@ -315,10 +315,10 @@ public class EvaluationService {
 			Character c = word.charAt(0);
 			c = Character.toLowerCase(c);
 			if (c.equals('a') || c.equals('e') || c.equals('i') || c.equals('o') || c.equals('u')) {
-				string =strBuilder.append(word.concat("ay")).toString();
+				string = strBuilder.append(word.concat("ay")).toString();
 			} else {
-				string = strBuilder.append(word.substring(1).concat(c +"ay")).toString();
-				if(wordCount > 1)
+				string = strBuilder.append(word.substring(1).concat(c + "ay")).toString();
+				if (wordCount > 1)
 					strBuilder.append(" ");
 			}
 		}
@@ -345,13 +345,13 @@ public class EvaluationService {
 		Integer armStrong = 0;
 		int pow = numberStr.length();
 		Character c;
-		
+
 		for (int i = 0; i < numberStr.length(); i++) {
 			c = numberStr.charAt(i);
 			armStrong += (int) Math.pow(Character.getNumericValue(c), pow);
 		}
-		
-		if(armStrong == input) {
+
+		if (armStrong == input) {
 			return true;
 		}
 		return false;
@@ -414,17 +414,20 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			 StringBuilder stringBuilder = new StringBuilder();
-			    
-			    for(int x = 0; x < string.length(); x++){
-			        char character = (char)(string.charAt(x) + key);
-			        if (character > 'z')
-			            stringBuilder.append((char)(string.charAt(x) - (26-key)));
-			        else
-			            stringBuilder.append((char)(string.charAt(x) + key));
-			    }
-			    System.out.println(stringBuilder.toString());
-			    return stringBuilder.toString();
+			StringBuilder stringBuilder = new StringBuilder();
+
+			for (int i = 0; i < string.length(); i++) {
+				char character = (char) (string.charAt(i) + key);
+
+				if (character > 'z') {
+					stringBuilder.append((char) (string.charAt(i) - (26 - key)));
+				} else {
+					stringBuilder.append((char) (string.charAt(i) + key));
+				}
+
+			}
+			System.out.println(stringBuilder.toString());
+			return stringBuilder.toString();
 		}
 
 	}
