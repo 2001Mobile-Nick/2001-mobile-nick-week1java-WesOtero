@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class EvaluationService {
 
@@ -186,10 +188,10 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-		
+
 		String newString = string.replaceAll("[^0-9a-zA-Z]+", "");
 		newString = newString.replaceAll("[^\\d]", "");
-		
+
 		return newString;
 	}
 
@@ -203,26 +205,24 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
+//		System.out.println(string);
 		HashMap<String, Integer> wordsCounted = new HashMap<>();
 		ArrayList<String> words = new ArrayList<String>();
-		
-		for (String str : string.split(" |,|")) {
+
+		for (String str : string.split(" |,")) {
+			str.replaceAll("\n", "");
 			words.add(str);
 		}
-		
+
 		for (String word : words) {
-			System.out.println(word);
-			
-			if(wordsCounted.containsKey(word)) {				
-				wordsCounted.put(word, 2);
+			if (wordsCounted.containsKey(word)) {
+				wordsCounted.put(word, wordsCounted.get(word) + 1);
 			} else {
 				wordsCounted.put(word, 1);
 			}
-			
+
 		}
-		//System.out.println(words);
-		System.out.println(wordsCounted);
-		System.out.println("\n");
+//		System.out.println(wordsCounted);
 		return wordsCounted;
 	}
 
@@ -302,8 +302,27 @@ public class EvaluationService {
 	 * @return
 	 */
 	public String toPigLatin(String string) {
-		// TODO Write an implementation for this method declaration
-		return null;
+
+		ArrayList<String> words = new ArrayList<>();
+		StringBuilder strBuilder = new StringBuilder();
+		int wordCount = string.length();
+		
+		for (String str : string.split(" ")) {
+			words.add(str);
+		}
+
+		for (String word : words) {
+			Character c = word.charAt(0);
+			c = Character.toLowerCase(c);
+			if (c.equals('a') || c.equals('e') || c.equals('i') || c.equals('o') || c.equals('u')) {
+				string =strBuilder.append(word.concat("ay")).toString();
+			} else {
+				string = strBuilder.append(word.substring(1).concat(c +"ay")).toString();
+				if(wordCount > 1)
+					strBuilder.append(" ");
+			}
+		}
+		return string;
 	}
 
 	/**
@@ -322,7 +341,19 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isArmstrongNumber(int input) {
-		// TODO Write an implementation for this method declaration
+		String numberStr = input + "";
+		Integer armStrong = 0;
+		int pow = numberStr.length();
+		Character c;
+		
+		for (int i = 0; i < numberStr.length(); i++) {
+			c = numberStr.charAt(i);
+			armStrong += (int) Math.pow(Character.getNumericValue(c), pow);
+		}
+		
+		if(armStrong == input) {
+			return true;
+		}
 		return false;
 	}
 
@@ -337,8 +368,16 @@ public class EvaluationService {
 	 * @return
 	 */
 	public List<Long> calculatePrimeFactorsOf(long l) {
-		// TODO Write an implementation for this method declaration
-		return null;
+		ArrayList<Long> factors = new ArrayList<>();
+		for (int currentNumber = 2; currentNumber <= l; currentNumber++) {
+			if (l % currentNumber == 0) {
+				factors.add((long) currentNumber);
+				l /= currentNumber;
+				currentNumber--;
+			}
+		}
+		System.out.println(factors);
+		return factors;
 	}
 
 	/**
@@ -376,8 +415,16 @@ public class EvaluationService {
 		}
 
 		public String rotate(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			 StringBuilder stringBuilder = new StringBuilder();
+			    
+			    for(int x = 0; x < string.length(); x++){
+			        char character = (char)(string.charAt(x) + key);
+			        if (character > 'z')
+			            stringBuilder.append((char)(string.charAt(x) - (26-key)));
+			        else
+			            stringBuilder.append((char)(string.charAt(x) + key));
+			    }
+			    return stringBuilder.toString();
 		}
 
 	}
