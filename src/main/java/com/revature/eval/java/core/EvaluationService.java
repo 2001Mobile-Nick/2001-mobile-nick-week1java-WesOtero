@@ -417,13 +417,17 @@ public class EvaluationService {
 			StringBuilder stringBuilder = new StringBuilder();
 
 			for (int i = 0; i < string.length(); i++) {
+				
 				char character = (char) (string.charAt(i) + key);
-
-				if (character > 'z') {
-					stringBuilder.append((char) (string.charAt(i) - (26 - key)));
-				} else {
-					stringBuilder.append((char) (string.charAt(i) + key));
+				if(string.charAt(i) == '"'||string.charAt(i) == '\''||string.charAt(i) == '!'||string.charAt(i) == '.'||string.charAt(i) == ' '|| string.charAt(i) == '1' || string.charAt(i) == '2'||string.charAt(i) == '3'||string.charAt(i) == '4' ||string.charAt(i) == '5'||string.charAt(i) == '5'||string.charAt(i) == '6'||string.charAt(i) == '7'||string.charAt(i) == '8'||string.charAt(i) == '9'||string.charAt(i) == '0') {
+					stringBuilder.append(string.charAt(i));
 				}
+				else if(character > 'z') {
+			        stringBuilder.append((char) (string.charAt(i) - (26 - key)));
+				} else {
+			        stringBuilder.append((char) (string.charAt(i) + key));
+				}
+				
 
 			}
 			System.out.println(stringBuilder.toString());
