@@ -415,14 +415,18 @@ public class EvaluationService {
 
 		public String rotate(String string) {
 			StringBuilder stringBuilder = new StringBuilder();
-
+			Pattern pattern = Pattern.compile("\\d");
+			
 			for (int i = 0; i < string.length(); i++) {
 				
 				char character = (char) (string.charAt(i) + key);
-				if(string.charAt(i) == '"'||string.charAt(i) == '\''||string.charAt(i) == '!'||string.charAt(i) == '.'||string.charAt(i) == ' '|| string.charAt(i) == '1' || string.charAt(i) == '2'||string.charAt(i) == '3'||string.charAt(i) == '4' ||string.charAt(i) == '5'||string.charAt(i) == '5'||string.charAt(i) == '6'||string.charAt(i) == '7'||string.charAt(i) == '8'||string.charAt(i) == '9'||string.charAt(i) == '0') {
+				//Need a better solution
+				Matcher match = pattern.matcher(character + "");
+				if(string.charAt(i) == '"'||string.charAt(i) == '\''||string.charAt(i) == '!'||string.charAt(i) == '.'||string.charAt(i) == ' '|| match.find()) {
 					stringBuilder.append(string.charAt(i));
 				}
 				else if(character > 'z') {
+					//Where my cipher is actually rotated
 			        stringBuilder.append((char) (string.charAt(i) - (26 - key)));
 				} else {
 			        stringBuilder.append((char) (string.charAt(i) + key));
@@ -430,7 +434,7 @@ public class EvaluationService {
 				
 
 			}
-			System.out.println(stringBuilder.toString());
+//			System.out.println(stringBuilder.toString());
 			return stringBuilder.toString();
 		}
 
@@ -647,7 +651,11 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		// TODO Write an implementation for this method declaration
+		ArrayList<String> strings = new ArrayList<>();
+		for (String str : string.split(" ")) {
+			strings.add(str);
+		}
+		System.out.println(strings.get(2));
 		return 0;
 	}
 
