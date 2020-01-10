@@ -529,8 +529,6 @@ public class EvaluationService {
 				if(i % 5 == 0 && i > 1)
 					newString.append(" ");
 			}
-			System.out.println(string);
-			System.out. println(newString.toString());
 			return newString.toString();
 		}
 
