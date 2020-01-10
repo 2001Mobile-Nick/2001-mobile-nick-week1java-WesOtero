@@ -517,18 +517,17 @@ public class EvaluationService {
 		public static String encode(String string) {
 			HashMap<Character, Character> atbash = new HashMap<>();
 			StringBuilder newString = new StringBuilder();
-			String cleanStr = string.replaceAll("\\.", "").toLowerCase();
+			String cleanStr = string.replaceAll("\\.|\\,| ", "").toLowerCase();
 			for (int i = 0; i < alphabet1.length(); i++) {
 				atbash.put(alphabet1.charAt(i), alphabet2.charAt(i));
 			}
-//			for (Character character : cleanStr.toCharArray()) {
-//				newString.append(atbash.get(character));
-//			}
+			
 			for (int i = 0; i < cleanStr.length(); i++) {
 				newString.append(atbash.get(cleanStr.charAt(i)));
-				if (i % 5 == 0)
+				if(i % 5 == 0 && i > 1)
 					newString.append(" ");
 			}
+			System.out.println(string);
 			System.out.println(newString.toString());
 			return newString.toString();
 		}
@@ -542,12 +541,14 @@ public class EvaluationService {
 		public static String decode(String string) {
 			HashMap<Character, Character> atbash = new HashMap<>();
 			StringBuilder newString = new StringBuilder();
-			String cleanStr = string.replaceAll("\\.", "");
-			for (int i = 0; i < alphabet1.length(); i++) {
+			String cleanStr = string.replaceAll("\\.", "").toLowerCase();
+			for (int i = 0; i < alphabet2.length(); i++) {
 				atbash.put(alphabet2.charAt(i), alphabet1.charAt(i));
 			}
-			for (Character character : cleanStr.toLowerCase().toCharArray()) {
-				newString.append(atbash.get(character));
+			for (int i = 0; i < cleanStr.length(); i++) {
+				newString.append(atbash.get(cleanStr.charAt(i)));
+				if(i % 5 == 0 && i > 1)
+					newString.append(" ");
 			}
 			System.out.println(newString.toString());
 			return newString.toString();
