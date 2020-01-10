@@ -620,9 +620,12 @@ public class EvaluationService {
 	 */
 	public boolean isLuhnValid(String string) {
 		List<Integer> integers = new ArrayList<>();
+		
 		Pattern p = Pattern.compile("\\d");
-        Matcher m = p.matcher(string);
-        int result = 0;
+        
+		Matcher m = p.matcher(string);
+        
+		int result = 0;
         
         while(m.find()) {
             integers.add(Integer.parseInt(m.group()));
@@ -670,7 +673,7 @@ public class EvaluationService {
 		List<String> strings = new ArrayList<>();
 		List<Integer> integer = new ArrayList<>();
 		int result = 0;
-		Pattern p = Pattern.compile("[-]\\d+");
+		Pattern p = Pattern.compile("[-]\\d+|\\d+");
         Matcher m = p.matcher(string);
         
         while(m.find()) {
@@ -684,11 +687,15 @@ public class EvaluationService {
 		for (String str : strings) {
 			if(str.contentEquals("multiplied")) {
 				result = integer.get(0) * integer.get(1);
+				System.out.println(integer);
 			}else if(str.contentEquals("divided")) {
+//				System.out.println(integer);
 				result = integer.get(0) / integer.get(1);;
 			}else if(str.contentEquals("plus")) {
+//				System.out.println(integer);
 				result = integer.get(0) + integer.get(1);
 			}else if(str.contentEquals("minus")) {
+//				System.out.println(integer);
 				result = integer.get(0) - integer.get(1);
 			}
 			
