@@ -630,15 +630,19 @@ public class EvaluationService {
         while(m.find()) {
             integers.add(Integer.parseInt(m.group()));
         }		
+        System.out.println(integers);
+        for (int i = 1; i < integers.size(); i+=2) {
+			integers.set(i, integers.get(i) * 2);
+		}
         
         for (Integer integer : integers) {
-			result += result;
+			result += integer;
 		}
         
 		if(result % 10 == 0) {
-			return false;
-		} else {
 			return true;
+		} else {
+			return false;
 		}
 	}
 
@@ -687,7 +691,7 @@ public class EvaluationService {
 		for (String str : strings) {
 			if(str.contentEquals("multiplied")) {
 				result = integer.get(0) * integer.get(1);
-				System.out.println(integer);
+//				System.out.println(integer);
 			}else if(str.contentEquals("divided")) {
 //				System.out.println(integer);
 				result = integer.get(0) / integer.get(1);;
