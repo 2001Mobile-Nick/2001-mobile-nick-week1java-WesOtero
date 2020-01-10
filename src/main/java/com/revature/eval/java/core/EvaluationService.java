@@ -188,10 +188,14 @@ public class EvaluationService {
 	 * NANP-countries, only 1 is considered a valid country code.
 	 */
 	public String cleanPhoneNumber(String string) {
-
 		String newString = string.replaceAll("[^0-9a-zA-Z]+", "");
-		newString = newString.replaceAll("[^\\d]", "");
-
+		if (string.length() > 9) {
+			throw new IllegalArgumentException();
+			
+		} else {
+			
+			newString = newString.replaceAll("[^\\d]", "");
+		}
 		return newString;
 	}
 
@@ -317,11 +321,16 @@ public class EvaluationService {
 			if (c.equals('a') || c.equals('e') || c.equals('i') || c.equals('o') || c.equals('u')) {
 				string = strBuilder.append(word.concat("ay")).toString();
 			} else {
-				string = strBuilder.append(word.substring(1).concat(c + "ay")).toString();
+				if(word.charAt(0) == 'q' && word.charAt(1) == 'u') {
+					string = strBuilder.append(word.substring(2).concat(c + "" + word.charAt(1) + "ay")).toString();
+				} else {
+					string = strBuilder.append(word.substring(1).concat(c + "ay")).toString();
+				}
 				if (wordCount > 1)
 					strBuilder.append(" ");
 			}
 		}
+		System.out.println(string);
 		return string;
 	}
 
@@ -416,22 +425,21 @@ public class EvaluationService {
 		public String rotate(String string) {
 			StringBuilder stringBuilder = new StringBuilder();
 			Pattern pattern = Pattern.compile("\\d");
-			
+
 			for (int i = 0; i < string.length(); i++) {
-				
+
 				char character = (char) (string.charAt(i) + key);
-				//Need a better solution
+				// Need a better solution
 				Matcher match = pattern.matcher(character + "");
-				if(string.charAt(i) == '"'||string.charAt(i) == '\''||string.charAt(i) == '!'||string.charAt(i) == '.'||string.charAt(i) == ' '|| match.find()) {
+				if (string.charAt(i) == '"' || string.charAt(i) == '\'' || string.charAt(i) == '!'
+						|| string.charAt(i) == '.' || string.charAt(i) == ' ' || match.find()) {
 					stringBuilder.append(string.charAt(i));
-				}
-				else if(character > 'z') {
-					//Where my cipher is actually rotated
-			        stringBuilder.append((char) (string.charAt(i) - (26 - key)));
+				} else if (character > 'z') {
+					// Where my cipher is actually rotated
+					stringBuilder.append((char) (string.charAt(i) - (26 - key)));
 				} else {
-			        stringBuilder.append((char) (string.charAt(i) + key));
+					stringBuilder.append((char) (string.charAt(i) + key));
 				}
-				
 
 			}
 //			System.out.println(stringBuilder.toString());
@@ -547,7 +555,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isPangram(String string) {
-		// TODO Write an implementation for this method declaration
+		HashMap<Object, Integer> characters = new HashMap<>();
+		String alphabet = "abcdefghijklmnopqrstuwxyz";
+		for (Character character : alphabet.toCharArray()) {
+			characters.put(character, 0);
+		}
+		
+		
+		for (Character character : string.toCharArray()) {
+			if(characters.containsKey(character))
+				characters.put(character, characters.get(character) + 1);
+		}
+		System.out.println(characters);
+		for (Character character : alphabet.toCharArray()) {
+			if(characters.get(character) > 1)
+				return false;
+			else if(characters.get(character) < 1)
+				return false;
+			else
+				return true;
+		}
 		return false;
 	}
 
@@ -578,7 +605,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		// TODO Write an implementation for this method declaration
+		
 		return 0;
 	}
 
@@ -620,26 +647,26 @@ public class EvaluationService {
 	 */
 	public boolean isLuhnValid(String string) {
 		List<Integer> integers = new ArrayList<>();
-		
+
 		Pattern p = Pattern.compile("\\d");
-        
+
 		Matcher m = p.matcher(string);
-        
+
 		int result = 0;
-        
-        while(m.find()) {
-            integers.add(Integer.parseInt(m.group()));
-        }		
-        System.out.println(integers);
-        for (int i = 1; i < integers.size(); i+=2) {
+
+		while (m.find()) {
+			integers.add(Integer.parseInt(m.group()));
+		}
+
+		for (int i = 1; i < integers.size(); i += 2) {
 			integers.set(i, integers.get(i) * 2);
 		}
-        
-        for (Integer integer : integers) {
+
+		for (Integer integer : integers) {
 			result += integer;
 		}
-        
-		if(result % 10 == 0) {
+
+		if (result % 10 == 0) {
 			return true;
 		} else {
 			return false;
@@ -678,31 +705,32 @@ public class EvaluationService {
 		List<Integer> integer = new ArrayList<>();
 		int result = 0;
 		Pattern p = Pattern.compile("[-]\\d+|\\d+");
-        Matcher m = p.matcher(string);
-        
-        while(m.find()) {
-            integer.add(Integer.parseInt(m.group()));
-        }		
-		
+		Matcher m = p.matcher(string);
+
+		while (m.find()) {
+			integer.add(Integer.parseInt(m.group()));
+		}
+
 		for (String str : string.split(" ")) {
 			strings.add(str);
 		}
-		
+
 		for (String str : strings) {
-			if(str.contentEquals("multiplied")) {
+			if (str.contentEquals("multiplied")) {
 				result = integer.get(0) * integer.get(1);
 //				System.out.println(integer);
-			}else if(str.contentEquals("divided")) {
+			} else if (str.contentEquals("divided")) {
 //				System.out.println(integer);
-				result = integer.get(0) / integer.get(1);;
-			}else if(str.contentEquals("plus")) {
+				result = integer.get(0) / integer.get(1);
+				;
+			} else if (str.contentEquals("plus")) {
 //				System.out.println(integer);
 				result = integer.get(0) + integer.get(1);
-			}else if(str.contentEquals("minus")) {
+			} else if (str.contentEquals("minus")) {
 //				System.out.println(integer);
 				result = integer.get(0) - integer.get(1);
 			}
-			
+
 		}
 		return result;
 	}
