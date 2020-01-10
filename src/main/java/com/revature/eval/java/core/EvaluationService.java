@@ -330,7 +330,7 @@ public class EvaluationService {
 					strBuilder.append(" ");
 			}
 		}
-		System.out.println(string);
+//		System.out.println(string);
 		return string;
 	}
 
@@ -490,7 +490,11 @@ public class EvaluationService {
 	 *
 	 */
 	static class AtbashCipher {
-
+		 
+		public static String alphabet1 = "abcdefghijklmnopqrstuvwxyz ";
+		public static String alphabet2 = "zyxwvutsrqponmlkjihgfedcba ";
+	
+		
 		/**
 		 * Question 13
 		 * 
@@ -498,8 +502,22 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String encode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			HashMap<Character, Character> atbash = new HashMap<>();
+			StringBuilder newString = new StringBuilder();
+			String cleanStr = string.replaceAll("\\.", "").toLowerCase();
+			for (int i = 0; i < alphabet1.length(); i++) {
+				atbash.put(alphabet1.charAt(i), alphabet2.charAt(i));
+			}
+//			for (Character character : cleanStr.toCharArray()) {
+//				newString.append(atbash.get(character));
+//			}
+			for (int i = 0; i < cleanStr.length(); i++) {
+				newString.append(atbash.get(cleanStr.charAt(i)));
+				if(i % 5 == 0)
+					newString.append(" ");
+			}
+			System.out.println(newString.toString());
+			return newString.toString();
 		}
 
 		/**
@@ -509,8 +527,17 @@ public class EvaluationService {
 		 * @return
 		 */
 		public static String decode(String string) {
-			// TODO Write an implementation for this method declaration
-			return null;
+			HashMap<Character, Character> atbash = new HashMap<>();
+			StringBuilder newString = new StringBuilder();
+			String cleanStr = string.replaceAll("\\.", "");
+			for (int i = 0; i < alphabet1.length(); i++) {
+				atbash.put(alphabet2.charAt(i), alphabet1.charAt(i));
+			}
+			for (Character character : cleanStr.toLowerCase().toCharArray()) {
+				newString.append(atbash.get(character));
+			}
+			System.out.println(newString.toString());
+			return newString.toString();
 		}
 	}
 
@@ -566,7 +593,7 @@ public class EvaluationService {
 			if(characters.containsKey(character))
 				characters.put(character, characters.get(character) + 1);
 		}
-		System.out.println(characters);
+//		System.out.println(characters);
 		for (Character character : alphabet.toCharArray()) {
 			if(characters.get(character) > 1)
 				return false;
