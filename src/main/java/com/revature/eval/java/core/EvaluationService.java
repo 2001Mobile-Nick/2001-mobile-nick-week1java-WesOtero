@@ -2,6 +2,8 @@ package com.revature.eval.java.core;
 
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -267,7 +269,7 @@ public class EvaluationService {
 		private List<T> sortedList;
 
 		public int indexOf(T t) {
-			// TODO Write an implementation for this method declaration
+//			ArrayList<T> i = Collections.list(t);
 			return 0;
 		}
 
@@ -505,8 +507,8 @@ public class EvaluationService {
 	 */
 	static class AtbashCipher {
 
-		public static String alphabet1 = "abcdefghijklmnopqrstuvwxyz ";
-		public static String alphabet2 = "zyxwvutsrqponmlkjihgfedcba ";
+		public static String alphabet1 = "abcdefghijklmnopqrstuvwxyz123456789 ";
+		public static String alphabet2 = "zyxwvutsrqponmlkjihgfedcba123456789 ";
 
 		/**
 		 * Question 13
@@ -528,7 +530,7 @@ public class EvaluationService {
 					newString.append(" ");
 			}
 			System.out.println(string);
-			System.out.println(newString.toString());
+			System.out. println(newString.toString());
 			return newString.toString();
 		}
 
@@ -697,11 +699,11 @@ public class EvaluationService {
 		Matcher m = p.matcher(string);
 
 		int result = 0;
-
+		
 		while (m.find()) {
 			integers.add(Integer.parseInt(m.group()));
 		}
-
+		System.out.println(integers);
 		for (int i = 1; i < integers.size(); i += 2) {
 			integers.set(i, integers.get(i) * 2);
 		}
