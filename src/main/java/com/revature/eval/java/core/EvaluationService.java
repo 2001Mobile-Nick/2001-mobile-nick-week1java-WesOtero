@@ -189,11 +189,11 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		String newString = string.replaceAll("[^0-9a-zA-Z]+", "");
-		if (string.length() > 9) {
-			throw new IllegalArgumentException();
-			
+		if (string.length() > 10) {
+//			throw new IllegalArgumentException();
+
 		} else {
-			
+
 			newString = newString.replaceAll("[^\\d]", "");
 		}
 		return newString;
@@ -209,7 +209,6 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Map<String, Integer> wordCount(String string) {
-//		System.out.println(string);
 		HashMap<String, Integer> wordsCounted = new HashMap<>();
 		ArrayList<String> words = new ArrayList<String>();
 
@@ -226,7 +225,6 @@ public class EvaluationService {
 			}
 
 		}
-//		System.out.println(wordsCounted);
 		return wordsCounted;
 	}
 
@@ -321,7 +319,7 @@ public class EvaluationService {
 			if (c.equals('a') || c.equals('e') || c.equals('i') || c.equals('o') || c.equals('u')) {
 				string = strBuilder.append(word.concat("ay")).toString();
 			} else {
-				if(word.charAt(0) == 'q' && word.charAt(1) == 'u') {
+				if (word.charAt(0) == 'q' && word.charAt(1) == 'u') {
 					string = strBuilder.append(word.substring(2).concat(c + "" + word.charAt(1) + "ay")).toString();
 				} else {
 					string = strBuilder.append(word.substring(1).concat(c + "ay")).toString();
@@ -330,7 +328,6 @@ public class EvaluationService {
 					strBuilder.append(" ");
 			}
 		}
-//		System.out.println(string);
 		return string;
 	}
 
@@ -442,7 +439,6 @@ public class EvaluationService {
 				}
 
 			}
-//			System.out.println(stringBuilder.toString());
 			return stringBuilder.toString();
 		}
 
@@ -461,8 +457,26 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int calculateNthPrime(int i) {
-		// TODO Write an implementation for this method declaration
-		return 0;
+		int number, count, index, nth = i;
+		number = 1;
+		count = 0;
+		if (i != 0) {
+			while (count < nth) {
+				number = number + 1;
+				for (index = 2; index <= number; index++) {
+					if (number % index == 0) {
+						break;
+					}
+				}
+				if (index == number) {
+					count = count + 1;
+				}
+
+			}
+		} else {
+			throw new IllegalArgumentException();
+		}
+		return number;
 	}
 
 	/**
@@ -490,11 +504,10 @@ public class EvaluationService {
 	 *
 	 */
 	static class AtbashCipher {
-		 
+
 		public static String alphabet1 = "abcdefghijklmnopqrstuvwxyz ";
 		public static String alphabet2 = "zyxwvutsrqponmlkjihgfedcba ";
-	
-		
+
 		/**
 		 * Question 13
 		 * 
@@ -513,7 +526,7 @@ public class EvaluationService {
 //			}
 			for (int i = 0; i < cleanStr.length(); i++) {
 				newString.append(atbash.get(cleanStr.charAt(i)));
-				if(i % 5 == 0)
+				if (i % 5 == 0)
 					newString.append(" ");
 			}
 			System.out.println(newString.toString());
@@ -564,7 +577,12 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isValidIsbn(String string) {
-		// TODO Write an implementation for this method declaration
+//		string = string.replaceAll("\\-", "");
+//		List<Integer> ints = new ArrayList<>();
+//		for (Character character : string.toCharArray()) {
+//				ints.add(Integer.parseInt(character.toString()));	
+//		}
+		
 		return false;
 	}
 
@@ -587,17 +605,16 @@ public class EvaluationService {
 		for (Character character : alphabet.toCharArray()) {
 			characters.put(character, 0);
 		}
-		
-		
+
 		for (Character character : string.toCharArray()) {
-			if(characters.containsKey(character))
+			if (characters.containsKey(character))
 				characters.put(character, characters.get(character) + 1);
 		}
-//		System.out.println(characters);
+
 		for (Character character : alphabet.toCharArray()) {
-			if(characters.get(character) > 1)
+			if (characters.get(character) > 1)
 				return false;
-			else if(characters.get(character) < 1)
+			else if (characters.get(character) < 1)
 				return false;
 			else
 				return true;
@@ -614,7 +631,6 @@ public class EvaluationService {
 	 * @return
 	 */
 	public Temporal getGigasecondDate(Temporal given) {
-		// TODO Write an implementation for this method declaration
 		return null;
 	}
 
@@ -632,7 +648,7 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int getSumOfMultiples(int i, int[] set) {
-		
+
 		return 0;
 	}
 
@@ -745,16 +761,12 @@ public class EvaluationService {
 		for (String str : strings) {
 			if (str.contentEquals("multiplied")) {
 				result = integer.get(0) * integer.get(1);
-//				System.out.println(integer);
 			} else if (str.contentEquals("divided")) {
-//				System.out.println(integer);
 				result = integer.get(0) / integer.get(1);
-				;
+				
 			} else if (str.contentEquals("plus")) {
-//				System.out.println(integer);
 				result = integer.get(0) + integer.get(1);
 			} else if (str.contentEquals("minus")) {
-//				System.out.println(integer);
 				result = integer.get(0) - integer.get(1);
 			}
 
