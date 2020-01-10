@@ -619,8 +619,24 @@ public class EvaluationService {
 	 * @return
 	 */
 	public boolean isLuhnValid(String string) {
-		// TODO Write an implementation for this method declaration
-		return false;
+		List<Integer> integers = new ArrayList<>();
+		Pattern p = Pattern.compile("\\d");
+        Matcher m = p.matcher(string);
+        int result = 0;
+        
+        while(m.find()) {
+            integers.add(Integer.parseInt(m.group()));
+        }		
+        
+        for (Integer integer : integers) {
+			result += result;
+		}
+        
+		if(result % 10 == 0) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	/**
@@ -651,12 +667,33 @@ public class EvaluationService {
 	 * @return
 	 */
 	public int solveWordProblem(String string) {
-		ArrayList<String> strings = new ArrayList<>();
+		List<String> strings = new ArrayList<>();
+		List<Integer> integer = new ArrayList<>();
+		int result = 0;
+		Pattern p = Pattern.compile("[-]\\d+");
+        Matcher m = p.matcher(string);
+        
+        while(m.find()) {
+            integer.add(Integer.parseInt(m.group()));
+        }		
+		
 		for (String str : string.split(" ")) {
 			strings.add(str);
 		}
-		System.out.println(strings.get(2));
-		return 0;
+		
+		for (String str : strings) {
+			if(str.contentEquals("multiplied")) {
+				result = integer.get(0) * integer.get(1);
+			}else if(str.contentEquals("divided")) {
+				result = integer.get(0) / integer.get(1);;
+			}else if(str.contentEquals("plus")) {
+				result = integer.get(0) + integer.get(1);
+			}else if(str.contentEquals("minus")) {
+				result = integer.get(0) - integer.get(1);
+			}
+			
+		}
+		return result;
 	}
 
 }
